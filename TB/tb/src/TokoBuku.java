@@ -33,14 +33,14 @@ public class TokoBuku
         Queue<String> pesan= new LinkedList<>();
         Queue<String> pesanCd= new LinkedList<>();
         
-        Stack<String> merch = new Stack<String>();
+        Stack<String> ag = new Stack<String>();
 
-        merch.push("Merch-1");
-        merch.push("Merch-2");
-        merch.push("Merch-3");
-        merch.push("Merch-4");
-        merch.push("Merch-5");
-        merch.push("Merch-6");
+        ag.push("Autograph Penulis(1)");
+        ag.push("Autograph Penulis(2)");
+        ag.push("Autograph Penulis(3)");
+        ag.push("Autograph Penulis(4)");
+        ag.push("Autograph Penulis(5)");
+        ag.push("Autograph Penulis(6)");
         
         System.out.println("\n-----------------------------------------------------");
         System.out.println("\tSelamat datang di Toko Buku Namiya");
@@ -58,7 +58,7 @@ public class TokoBuku
             System.out.println("3. Pesan BUKU ");
             System.out.println("4. Pesan CD ");
             System.out.println("5. Pre-Order");
-            System.out.println("6. Cek Merch Tersedia");
+            System.out.println("6. Cek AutoGraph Tersedia");
             System.out.println("7. Cek Pohon Biner Traversal");
             System.out.println("8. Graph");
             System.out.println("9. Keluar");
@@ -86,17 +86,21 @@ public class TokoBuku
             }
             else if(pilihan==2)
             {
+                
                 if(name.isEmpty())
                 {
                     System.out.println("Antrian kosong");
                 }
                 else
-                {
-                    System.out.println("--------------------------");
-                    System.out.println("        Data ");
-                    System.out.println(" Nama         : "+name);
-                    System.out.println(" Buku         : "+pesan);
-                    System.out.println(" CD           : "+pesanCd);
+                {   
+                    for(int i=0; i < name.size();i++){
+                        System.out.println("--------------------------");
+                        System.out.println("        Data " );
+                        System.out.println(" Nama         : "+((LinkedList<String>) name).get(i));
+                        System.out.println(" Buku         : "+((LinkedList<String>) pesan).get(i));
+                        System.out.println(" CD           : "+((LinkedList<String>) pesanCd).get(i));
+                        
+                    }
                     System.out.println(" Total Antrian Saat ini  : "+name.size());
                 }   
             }
@@ -170,7 +174,7 @@ public class TokoBuku
                     System.out.println("Tidak ada");
                 }
 
-                merch.pop();
+                ag.pop();
                 System.out.println("Data input ");
 
             }
@@ -190,9 +194,9 @@ public class TokoBuku
             }
             else if(pilihan==6)
             {
-                System.out.println("1.Lihat Jumlah merch ");
-                System.out.println("2.Tambah Tumpukan Merch ");
-                System.out.println("3.Ambil Merch Tumpukan Teratas");
+                System.out.println("1.Lihat Jumlah AutoGraph ");
+                System.out.println("2.Tambah Tumpukan AutoGraph ");
+                System.out.println("3.Ambil AutoGraph Tumpukan Teratas");
                 System.out.println("----------------------");
                 Scanner d = new Scanner(System.in);
                 Scanner e = new Scanner(System.in);
@@ -200,14 +204,14 @@ public class TokoBuku
                 cek = d.nextInt();
                 if(cek==1)
                 {
-                    System.out.println(""+merch);
+                    System.out.println(""+ag);
                 }
                 else if(cek==2)
                 {
-                    System.out.print("Tumpukkan merch (merch-?) : ");
+                    System.out.print("Tumpukkan AutoGraph  (AutoGraph-?) : ");
                     PCD = e.nextLine();
-                    merch.push(PCD);
-                    if(merch.isEmpty())
+                    ag.push(PCD);
+                    if(ag.isEmpty())
                     {   
                         System.out.println("Kosong");
                     }
@@ -218,10 +222,9 @@ public class TokoBuku
                 }
                 else if(cek==3)
                 {
-                    System.out.print("Ambil Merch Terbaru");
-                    PCD = e.nextLine();
-                    merch.pop();
-                    if(merch.isEmpty())
+                    System.out.print("Ambil AutoGraph Terbaru");
+                    ag.pop();
+                    if(ag.isEmpty())
                     {   
                         System.out.println("Kosong");
                     }
@@ -236,6 +239,14 @@ public class TokoBuku
             else if(pilihan==7)
             {
                 BinaryTree tree = new BinaryTree();
+                System.out.println("Pilih Jenis order benar untuk diskon%\n");
+                System.out.println("\t       Snowman\n\t      /     \\\n\t    Want     A\n\t    / \\     / \\ \n\t  Do  You  To  Build\n\t");
+                System.out.print("1.Pre-Order    ");
+                System.out.print("\n2.In-Order   ");
+                System.out.println("\n3.Post-Order ");
+                System.out.print("\nPilihan = ");
+                Scanner p = new Scanner(System.in);
+                int pl = p.nextInt();
                 tree.root = new Node("Snowman");
                 tree.root.left = new Node("Want");
                 tree.root.right = new Node("A");
@@ -257,49 +268,54 @@ public class TokoBuku
             }
             else if(pilihan==8)
             {
-                class Graph{
-                ArrayList<ArrayList<Integer>>graph;
-                int V;
-
-                Graph(int nodes)
-                {
-                    V = nodes;
-                    graph = new ArrayList<ArrayList<Integer>>();
-                    for(int i=0;i<V;i++)
+                class Graph
+                {   
+                    //inisialisasi
+                    ArrayList<ArrayList<Integer>>gr;
+                    int a;
+                    
+                    //buat vertex
+                    void addEdge(int v,int u)
                     {
-                        graph.add(new ArrayList<Integer>());
+                        gr.get(v).add(u);
+                        gr.get(u).add(v);
+                    }
+
+
+                    Graph(int nodes)
+                    {
+                        a = nodes;
+                        gr = new ArrayList<ArrayList<Integer>>();
+                        for(int i=0;i<a;i++)
+                        {
+                            gr.add(new ArrayList<Integer>());
+                        }
+                    }
+
+                    //menampilkan graph
+                    void printGraph()
+                    {
+                        for(int i=0;i<a;i++)
+                        {
+                            System.out.print("Node : "+i);
+                            for(int x : gr.get(i))System.out.print(" -> "+x);
+                            System.out.println();
+                        }
                     }
                 }
-
-                void addEdge(int v,int u)
-                {
-                    graph.get(v).add(u);
-                    graph.get(u).add(v);
-                }
-
-                void printGraph()
-                {
-                    for(int i=0;i<V;i++)
-                    {
-                        System.out.print("Node : "+i);
-                        for(int x : graph.get(i))System.out.print(" -> "+x);
-                        System.out.println();
-                    }
-                }
-            }
-                
-                Graph g = new Graph(11);
-        
-                g.addEdge(2, 1);
-                g.addEdge(4, 2);
-                g.addEdge(0, 3);
-                g.addEdge(0, 4);
-                g.addEdge(5, 6);
-                g.addEdge(1, 7);
-                g.addEdge(5, 8);
-                g.addEdge(3, 9);
-                g.addEdge(9, 10);
-                g.printGraph();
+                    
+                    Graph arah = new Graph(11);
+            
+                    arah.addEdge(0, 1);
+                    arah.addEdge(1, 2);
+                    arah.addEdge(2, 3);
+                    arah.addEdge(3, 4);
+                    arah.addEdge(5, 6);
+                    arah.addEdge(6, 7);
+                    arah.addEdge(7, 8);
+                    arah.addEdge(8, 9);
+                    arah.addEdge(9, 10);
+                    arah.printGraph();
             }
             else
             {
@@ -311,7 +327,5 @@ public class TokoBuku
         }
         while(pilihan!=9);
         input.close();
-
     }
-    
 }
